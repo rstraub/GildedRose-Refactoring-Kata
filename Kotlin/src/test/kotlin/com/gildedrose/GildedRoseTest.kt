@@ -73,6 +73,30 @@ internal class GildedRoseTest {
         }
     }
 
+    @Nested
+    inner class Legendary {
+        private lateinit var legendary: Item
+
+        @BeforeEach
+        internal fun setUp() {
+            legendary = Item("Sulfuras, Hand of Ragnaros", 0, 80)
+        }
+
+        @Test
+        internal fun `quality should not degrade`() {
+            val result = updatedItem(arrayOf(legendary))
+
+            assertThat(result.quality).isEqualTo(80)
+        }
+
+        @Test
+        internal fun `does not have a sell by date`() {
+            val result = updatedItem(arrayOf(legendary))
+
+            assertThat(result.sellIn).isEqualTo(0)
+        }
+    }
+
     private fun updatedItem(items: Array<Item>): Item {
         val app = GildedRose(items)
 
