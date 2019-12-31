@@ -1,7 +1,8 @@
 package com.gildedrose
 
-import org.junit.Assert.*
-import org.junit.Test
+import org.assertj.core.api.Assertions.assertThat
+import org.junit.jupiter.api.Nested
+import org.junit.jupiter.api.Test
 
 internal class GildedRoseTest {
     @Test
@@ -10,7 +11,7 @@ internal class GildedRoseTest {
 
         val result = updatedItem(items)
 
-        assertEquals(9, result.sellIn)
+        assertThat(result.sellIn).isEqualTo(9)
     }
 
     @Test
@@ -19,7 +20,7 @@ internal class GildedRoseTest {
 
         val result = updatedItem(items)
 
-        assertEquals(9, result.quality)
+        assertThat(result.quality).isEqualTo(9)
     }
 
     @Test
@@ -28,7 +29,7 @@ internal class GildedRoseTest {
 
         val result = updatedItem(items)
 
-        assertEquals(0, result.quality)
+        assertThat(result.quality).isEqualTo(0)
     }
 
     @Test
@@ -37,8 +38,11 @@ internal class GildedRoseTest {
 
         val result = updatedItem(items)
 
-        assertEquals(8, result.quality)
+        assertThat(result.quality).isEqualTo(8)
     }
+
+    @Nested
+    inner class Aged {}
 
     private fun updatedItem(items: Array<Item>): Item {
         val app = GildedRose(items)
@@ -48,5 +52,3 @@ internal class GildedRoseTest {
         return app.items.first()
     }
 }
-
-
