@@ -6,9 +6,11 @@ import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 
 internal class GildedRoseTest {
+    private val regularItem = Item("test", 10, 10)
+
     @Test
     fun `should deduct the sell in days`() {
-        val items = arrayOf(Item("test", 10, 10))
+        val items = arrayOf(regularItem)
 
         val result = updatedItem(items)
 
@@ -17,7 +19,7 @@ internal class GildedRoseTest {
 
     @Test
     fun `should deduct the quality for a regular item`() {
-        val items = arrayOf(Item("test", 10, 10))
+        val items = arrayOf(regularItem)
 
         val result = updatedItem(items)
 
@@ -49,7 +51,7 @@ internal class GildedRoseTest {
 
         @BeforeEach
         internal fun setUp() {
-            agedBrie = Item("Aged Brie", 10, 10)
+            agedBrie = Item("Aged Brie", 10, 49)
             items = arrayOf(agedBrie)
         }
 
@@ -57,7 +59,7 @@ internal class GildedRoseTest {
         internal fun `quality should increase over time`() {
             val result = updatedItem(items)
 
-            assertThat(result.quality).isEqualTo(11)
+            assertThat(result.quality).isEqualTo(50)
         }
 
         @Test
