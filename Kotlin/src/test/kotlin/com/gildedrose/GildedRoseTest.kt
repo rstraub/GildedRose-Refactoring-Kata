@@ -45,7 +45,7 @@ internal class GildedRoseTest {
     }
 
     @Nested
-    inner class Aged {
+    inner class AgedBrie {
         private lateinit var agedBrie: Item
         private lateinit var items: Array<Item>
 
@@ -94,6 +94,45 @@ internal class GildedRoseTest {
             val result = updatedItem(arrayOf(legendary))
 
             assertThat(result.sellIn).isEqualTo(0)
+        }
+    }
+
+    @Nested
+    inner class BackstagePasses {
+        @Test
+        internal fun `should have zero quality when the sell by date has passed`() {
+            val backstagePass = Item("Backstage passes to a TAFKAL80ETC concert", 0, 49)
+
+            val result = updatedItem(arrayOf(backstagePass))
+
+            assertThat(result.quality).isEqualTo(0)
+        }
+
+        @Test
+        internal fun `should increase the quality by one if it has more than 10 days remaining`() {
+            val backstagePass = Item("Backstage passes to a TAFKAL80ETC concert", 11, 0)
+
+            val result = updatedItem(arrayOf(backstagePass))
+
+            assertThat(result.quality).isEqualTo(1)
+        }
+
+        @Test
+        internal fun `should increase the quality by two when there are less than 10 days remaining`() {
+            val backstagePass = Item("Backstage passes to a TAFKAL80ETC concert", 10, 0)
+
+            val result = updatedItem(arrayOf(backstagePass))
+
+            assertThat(result.quality).isEqualTo(2)
+        }
+
+        @Test
+        internal fun `should increase the quality by three when there are less than five days left`() {
+            val backstagePass = Item("Backstage passes to a TAFKAL80ETC concert", 5, 0)
+
+            val result = updatedItem(arrayOf(backstagePass))
+
+            assertThat(result.quality).isEqualTo(3)
         }
     }
 
