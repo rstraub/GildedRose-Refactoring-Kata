@@ -1,6 +1,7 @@
 package com.gildedrose
 
 import org.assertj.core.api.Assertions.assertThat
+import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 
@@ -42,7 +43,23 @@ internal class GildedRoseTest {
     }
 
     @Nested
-    inner class Aged {}
+    inner class Aged {
+        private lateinit var agedBrie: Item
+        private lateinit var items: Array<Item>
+
+        @BeforeEach
+        internal fun setUp() {
+            agedBrie = Item("Aged Brie", 10, 10)
+            items = arrayOf(agedBrie)
+        }
+
+        @Test
+        internal fun `quality should increase over time`() {
+            val result = updatedItem(items)
+
+            assertThat(result.quality).isEqualTo(11)
+        }
+    }
 
     private fun updatedItem(items: Array<Item>): Item {
         val app = GildedRose(items)
