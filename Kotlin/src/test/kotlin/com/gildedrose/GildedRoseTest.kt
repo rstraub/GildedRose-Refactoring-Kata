@@ -59,6 +59,16 @@ internal class GildedRoseTest {
 
             assertThat(result.quality).isEqualTo(11)
         }
+
+        @Test
+        internal fun `quality should not exceed 50`() {
+            agedBrie = Item("Aged Brie", 10, 50)
+            items = arrayOf(agedBrie)
+
+            val result = updatedItem(items)
+
+            assertThat(result.quality).isEqualTo(50)
+        }
     }
 
     private fun updatedItem(items: Array<Item>): Item {
