@@ -3,17 +3,17 @@ package com.gildedrose
 import org.junit.Assert.*
 import org.junit.Test
 
-class GildedRoseTest {
-
-    @Test fun foo() {
-        val items = arrayOf<Item>(Item("foo", 0, 0))
+internal class GildedRoseTest {
+    @Test
+    fun `should deduct the sell in days`() {
+        val items = arrayOf(Item("test", 10, 10))
         val app = GildedRose(items)
+
         app.updateQuality()
-        assertEquals("fixme", app.items[0].name)
+        val result = app.items.first()
 
+        assertEquals(9, result.sellIn)
     }
-
-
 }
 
 
