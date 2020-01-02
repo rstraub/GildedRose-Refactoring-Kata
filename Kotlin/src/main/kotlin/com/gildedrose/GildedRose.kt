@@ -17,6 +17,9 @@ class GildedRose(var items: Array<Item>) {
     }
 
     private fun updatedQuality(item: Item): Int {
+        if (isLegendary(item))
+            return item.quality
+
         var qualityDifference = MIN_QUALITY
         if (isAged(item)) {
             if (isAllowedToIncreaseQuality(item)) {
@@ -33,16 +36,16 @@ class GildedRose(var items: Array<Item>) {
                 }
             }
         } else {
-            if (isAllowedToDecreaseQuality(item)) {
+            if (isRegular(item)) {
                 qualityDifference = -1
             }
         }
 
         if (sellByDatePassed(updatedSellByDate(item))) {
             if (isBackstagePass(item)) {
-                qualityDifference = -item.quality
+                return 0
             } else {
-                if (isAllowedToDecreaseQuality(item)) {
+                if (isRegular(item)) {
                     qualityDifference = -2
                 }
             }
@@ -50,8 +53,10 @@ class GildedRose(var items: Array<Item>) {
 
         val newQuality = item.quality + qualityDifference
 
-        return if (newQuality > MAX_QUALITY && !isLegendary(item))
+        return if (newQuality > MAX_QUALITY)
             MAX_QUALITY
+        else if (newQuality < MIN_QUALITY)
+            MIN_QUALITY
         else {
             newQuality
         }
@@ -65,15 +70,12 @@ class GildedRose(var items: Array<Item>) {
 
     private fun sellByDatePassed(daysLeft: Int) = daysLeft < 0
 
-    private fun isAllowedToDecreaseQuality(item: Item) =
-        !isLegendary(item) && isAboveMinimumQuality(item.quality)
-
     private fun isAllowedToIncreaseQuality(item: Item) =
         !isLegendary(item) && isBeneathMaximumQuality(item.quality)
 
     private fun isBeneathMaximumQuality(quality: Int) = quality < MAX_QUALITY
 
-    private fun isAboveMinimumQuality(quality: Int) = quality > MIN_QUALITY
+    private fun isRegular(item: Item) = !isAged(item) && !isLegendary(item)
 
     private fun isAged(item: Item) = isAgedBrie(item) || isBackstagePass(item)
 
