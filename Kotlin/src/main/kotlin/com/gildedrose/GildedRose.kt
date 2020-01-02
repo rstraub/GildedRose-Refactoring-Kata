@@ -10,11 +10,11 @@ class GildedRose(var items: Array<Item>) {
     fun updateInventory() = items.forEach(::updateItem)
 
     private fun updateItem(item: Item) {
-        updateQuality(item)
+        item.quality = updateQuality(item)
         item.sellIn = updatedSellByDate(item)
     }
 
-    private fun updateQuality(item: Item) {
+    private fun updateQuality(item: Item): Int {
         var qualityDifference = 0
         if (isAged(item)) {
             if (isAllowedToIncreaseQuality(item)) {
@@ -47,10 +47,11 @@ class GildedRose(var items: Array<Item>) {
         }
 
         val newQuality = item.quality + qualityDifference
-        if (newQuality > 50 && !isLegendary(item))
-            item.quality = 50
+
+        return if (newQuality > 50 && !isLegendary(item))
+            50
         else {
-            item.quality = newQuality
+            newQuality
         }
     }
 
