@@ -36,9 +36,7 @@ class GildedRose(var items: Array<Item>) {
             }
         }
 
-        if (!isLegendary(item)) {
-            item.sellIn = item.sellIn - 1
-        }
+        updateSellByDate(item)
 
         if (item.sellIn < 0) {
             if (!isAgedBrie(item)) {
@@ -56,6 +54,12 @@ class GildedRose(var items: Array<Item>) {
                     item.quality = item.quality + 1
                 }
             }
+        }
+    }
+
+    private fun updateSellByDate(item: Item) {
+        if (!isLegendary(item)) {
+            item.sellIn = item.sellIn - 1
         }
     }
 
