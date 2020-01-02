@@ -14,7 +14,7 @@ internal class GildedRoseTest {
 
         val result = updatedItem(items)
 
-        assertThat(result.sellIn).isEqualTo(9)
+        result assertSellInIs 9
     }
 
     @Test
@@ -23,7 +23,7 @@ internal class GildedRoseTest {
 
         val result = updatedItem(items)
 
-        assertThat(result.quality).isEqualTo(9)
+        result assertQualityIs 9
     }
 
     @Test
@@ -32,7 +32,7 @@ internal class GildedRoseTest {
 
         val result = updatedItem(items)
 
-        assertThat(result.quality).isEqualTo(0)
+        result assertQualityIs 0
     }
 
     @Test
@@ -41,7 +41,7 @@ internal class GildedRoseTest {
 
         val result = updatedItem(items)
 
-        assertThat(result.quality).isEqualTo(8)
+        result assertQualityIs 8
     }
 
     @Nested
@@ -54,7 +54,7 @@ internal class GildedRoseTest {
             val items = arrayOf(item)
             val result = updatedItem(items)
 
-            assertThat(result.quality).isEqualTo(50)
+            result assertQualityIs 50
         }
 
         @Test
@@ -64,7 +64,7 @@ internal class GildedRoseTest {
 
             val result = updatedItem(items)
 
-            assertThat(result.quality).isEqualTo(50)
+            result assertQualityIs 50
         }
     }
 
@@ -81,14 +81,14 @@ internal class GildedRoseTest {
         internal fun `quality should not degrade`() {
             val result = updatedItem(arrayOf(legendary))
 
-            assertThat(result.quality).isEqualTo(80)
+            result assertQualityIs 80
         }
 
         @Test
         internal fun `does not have a sell by date`() {
             val result = updatedItem(arrayOf(legendary))
 
-            assertThat(result.sellIn).isEqualTo(0)
+            result assertSellInIs 0
         }
     }
 
@@ -102,7 +102,7 @@ internal class GildedRoseTest {
 
             val result = updatedItem(arrayOf(backstagePass))
 
-            assertThat(result.quality).isEqualTo(0)
+            result assertQualityIs 0
         }
 
         @Test
@@ -111,7 +111,7 @@ internal class GildedRoseTest {
 
             val result = updatedItem(arrayOf(backstagePass))
 
-            assertThat(result.quality).isEqualTo(1)
+            result assertQualityIs 1
         }
 
         @Test
@@ -120,7 +120,7 @@ internal class GildedRoseTest {
 
             val result = updatedItem(arrayOf(backstagePass))
 
-            assertThat(result.quality).isEqualTo(2)
+            result assertQualityIs 2
         }
 
         @Test
@@ -129,9 +129,15 @@ internal class GildedRoseTest {
 
             val result = updatedItem(arrayOf(backstagePass))
 
-            assertThat(result.quality).isEqualTo(3)
+            result assertQualityIs 3
         }
     }
+
+    private infix fun Item.assertQualityIs(expected: Int) =
+        assertThat(quality).isEqualTo(expected)
+
+    private infix fun Item.assertSellInIs(expected: Int) =
+        assertThat(sellIn).isEqualTo(expected)
 
     private fun updatedItem(items: Array<Item>): Item {
         val app = GildedRose(items)
