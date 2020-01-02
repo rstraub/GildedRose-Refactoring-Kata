@@ -27,15 +27,15 @@ class GildedRose(var items: Array<Item>) {
 
         if (isAged(item)) {
             qualityDifference = 1
+        }
 
-            if (isBackstagePass(item)) {
-                if (item.sellIn <= 10) {
-                    qualityDifference = 2
-                }
+        if (isBackstagePass(item)) {
+            if (item.sellIn <= 10) {
+                qualityDifference = 2
+            }
 
-                if (item.sellIn <= 5) {
-                    qualityDifference = 3
-                }
+            if (item.sellIn <= 5) {
+                qualityDifference = 3
             }
         }
 
