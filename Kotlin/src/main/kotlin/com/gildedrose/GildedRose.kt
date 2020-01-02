@@ -37,17 +37,11 @@ class GildedRose(var items: Array<Item>) {
         }
 
         if (sellByDatePassed(updatedSellByDate(item))) {
-            if (isAgedBrie(item)) {
-                if (isAllowedToIncreaseQuality(item)) {
-                    qualityDifference = 1
-                }
+            if (isBackstagePass(item)) {
+                qualityDifference = -item.quality
             } else {
-                if (isBackstagePass(item)) {
-                    qualityDifference = -item.quality
-                } else {
-                    if (isAllowedToDecreaseQuality(item)) {
-                        qualityDifference = -2
-                    }
+                if (isAllowedToDecreaseQuality(item)) {
+                    qualityDifference = -2
                 }
             }
         }
