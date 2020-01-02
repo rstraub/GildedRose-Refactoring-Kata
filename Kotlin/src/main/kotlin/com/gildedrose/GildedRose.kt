@@ -37,7 +37,11 @@ class GildedRose(var items: Array<Item>) {
         updateSellByDate(item)
 
         if (sellByDatePassed(item)) {
-            if (!isAgedBrie(item)) {
+            if (isAgedBrie(item)) {
+                if (isAllowedToIncreaseQuality(item)) {
+                    item.quality = item.quality + 1
+                }
+            } else {
                 if (isBackstagePass(item)) {
                     item.quality = 0
                 } else {
@@ -46,10 +50,6 @@ class GildedRose(var items: Array<Item>) {
                             item.quality = item.quality - 1
                         }
                     }
-                }
-            } else {
-                if (isAllowedToIncreaseQuality(item)) {
-                    item.quality = item.quality + 1
                 }
             }
         }
