@@ -1,16 +1,7 @@
 package com.gildedrose
 
 class GildedRose(var items: Array<Item>) {
-    fun updateInventory() {
-        for (i in items.indices) {
-            updateItem(i)
-        }
-    }
-
-    private fun updateItem(index: Int) {
-        val item = items[index]
-        return updateItem(item)
-    }
+    fun updateInventory() = items.forEach(::updateItem)
 
     private fun updateItem(item: Item) {
         if (item.name != "Aged Brie" && item.name != "Backstage passes to a TAFKAL80ETC concert") {
