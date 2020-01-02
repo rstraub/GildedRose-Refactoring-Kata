@@ -38,14 +38,14 @@ class GildedRose(var items: Array<Item>) {
 
         if (sellByDatePassed(item)) {
             if (!isAgedBrie(item)) {
-                if (!isBackstagePass(item)) {
+                if (isBackstagePass(item)) {
+                    item.quality = 0
+                } else {
                     if (isAllowedToDecreaseQuality(item)) {
                         if (!isLegendary(item)) {
                             item.quality = item.quality - 1
                         }
                     }
-                } else {
-                    item.quality = item.quality - item.quality
                 }
             } else {
                 if (isAllowedToIncreaseQuality(item)) {
