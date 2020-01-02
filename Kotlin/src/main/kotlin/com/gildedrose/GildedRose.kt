@@ -10,11 +10,11 @@ class GildedRose(var items: Array<Item>) {
     fun updateInventory() = items.forEach(::updateItem)
 
     private fun updateItem(item: Item) {
-        item.quality = updateQuality(item)
+        item.quality = updatedQuality(item)
         item.sellIn = updatedSellByDate(item)
     }
 
-    private fun updateQuality(item: Item): Int {
+    private fun updatedQuality(item: Item): Int {
         var qualityDifference = 0
         if (isAged(item)) {
             if (isAllowedToIncreaseQuality(item)) {
