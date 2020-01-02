@@ -85,6 +85,15 @@ internal class GildedRoseTest {
         }
 
         @Test
+        internal fun `quality should not increase`() {
+            val item = Item(LEGENDARY, 10, 40)
+
+            val result = updatedItem(item)
+
+            result assertQualityIs 40
+        }
+
+        @Test
         internal fun `does not have a sell by date`() {
             val result = updatedItem(legendary)
 

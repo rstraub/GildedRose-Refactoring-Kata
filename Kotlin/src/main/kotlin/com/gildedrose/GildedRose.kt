@@ -64,7 +64,8 @@ class GildedRose(var items: Array<Item>) {
     private fun isAllowedToDecreaseQuality(item: Item) =
         !isLegendary(item) && isAboveMinimumQuality(item.quality)
 
-    private fun isAllowedToIncreaseQuality(item: Item) = isBeneathMaximumQuality(item.quality)
+    private fun isAllowedToIncreaseQuality(item: Item) =
+        !isLegendary(item) && isBeneathMaximumQuality(item.quality)
 
     private fun isBeneathMaximumQuality(quality: Int) = quality < 50
 
