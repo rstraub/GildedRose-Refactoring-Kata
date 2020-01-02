@@ -15,7 +15,7 @@ class GildedRose(var items: Array<Item>) {
     }
 
     private fun updateQuality(item: Item) {
-        var qualityDifference: Int
+        var qualityDifference = 0
         if (isAged(item)) {
             if (isAllowedToIncreaseQuality(item)) {
                 qualityDifference = 1
@@ -33,14 +33,14 @@ class GildedRose(var items: Array<Item>) {
                         }
                     }
                 }
-                item.quality += qualityDifference
             }
         } else {
             if (isAllowedToDecreaseQuality(item)) {
                 qualityDifference = -1
-                item.quality += qualityDifference
             }
         }
+
+        item.quality += qualityDifference
 
         if (sellByDatePassed(updatedSellByDate(item))) {
             if (isAgedBrie(item)) {
