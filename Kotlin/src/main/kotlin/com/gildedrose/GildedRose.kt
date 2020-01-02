@@ -46,9 +46,7 @@ class GildedRose(var items: Array<Item>) {
                     item.quality = 0
                 } else {
                     if (isAllowedToDecreaseQuality(item)) {
-                        if (!isLegendary(item)) {
-                            item.quality = item.quality - 1
-                        }
+                        item.quality = item.quality - 1
                     }
                 }
             }
