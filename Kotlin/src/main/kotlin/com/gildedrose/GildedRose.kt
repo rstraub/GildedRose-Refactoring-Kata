@@ -30,9 +30,7 @@ class GildedRose(var items: Array<Item>) {
             }
         } else {
             if (isAllowedToDecreaseQuality(item)) {
-                if (!isLegendary(item)) {
-                    item.quality = item.quality - 1
-                }
+                item.quality = item.quality - 1
             }
         }
 
@@ -65,7 +63,7 @@ class GildedRose(var items: Array<Item>) {
 
     private fun sellByDatePassed(item: Item) = item.sellIn < 0
 
-    private fun isAllowedToDecreaseQuality(item: Item) = item.quality > 0
+    private fun isAllowedToDecreaseQuality(item: Item) = !isLegendary(item) && item.quality > 0
 
     private fun isAllowedToIncreaseQuality(item: Item) = item.quality < 50
 
