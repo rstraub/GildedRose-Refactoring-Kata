@@ -46,10 +46,11 @@ class GildedRose(var items: Array<Item>) {
             }
         }
 
-        if (item.quality + qualityDifference > 50 && !isLegendary(item))
+        val newQuality = item.quality + qualityDifference
+        if (newQuality > 50 && !isLegendary(item))
             item.quality = 50
         else {
-            item.quality += qualityDifference
+            item.quality = newQuality
         }
     }
 
