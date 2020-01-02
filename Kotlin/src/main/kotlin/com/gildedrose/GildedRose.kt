@@ -38,7 +38,7 @@ class GildedRose(var items: Array<Item>) {
 
         updateSellByDate(item)
 
-        if (item.sellIn < 0) {
+        if (sellByDatePassed(item)) {
             if (!isAgedBrie(item)) {
                 if (!isBackstagePass(item)) {
                     if (isAllowedToDecreaseQuality(item)) {
@@ -62,6 +62,8 @@ class GildedRose(var items: Array<Item>) {
             item.sellIn = item.sellIn - 1
         }
     }
+
+    private fun sellByDatePassed(item: Item) = item.sellIn < 0
 
     private fun isAllowedToDecreaseQuality(item: Item) = item.quality > 0
 
