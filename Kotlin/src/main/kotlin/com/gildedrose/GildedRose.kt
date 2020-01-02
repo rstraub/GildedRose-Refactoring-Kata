@@ -5,6 +5,8 @@ class GildedRose(var items: Array<Item>) {
         const val AGED_BRIE = "Aged Brie"
         const val BACKSTAGE_PASS = "Backstage passes to a TAFKAL80ETC concert"
         const val LEGENDARY = "Sulfuras, Hand of Ragnaros"
+        const val MAX_QUALITY = 50
+        const val MIN_QUALITY = 0
     }
 
     fun updateInventory() = items.forEach(::updateItem)
@@ -15,7 +17,7 @@ class GildedRose(var items: Array<Item>) {
     }
 
     private fun updatedQuality(item: Item): Int {
-        var qualityDifference = 0
+        var qualityDifference = MIN_QUALITY
         if (isAged(item)) {
             if (isAllowedToIncreaseQuality(item)) {
                 qualityDifference = 1
@@ -48,8 +50,8 @@ class GildedRose(var items: Array<Item>) {
 
         val newQuality = item.quality + qualityDifference
 
-        return if (newQuality > 50 && !isLegendary(item))
-            50
+        return if (newQuality > MAX_QUALITY && !isLegendary(item))
+            MAX_QUALITY
         else {
             newQuality
         }
@@ -69,9 +71,9 @@ class GildedRose(var items: Array<Item>) {
     private fun isAllowedToIncreaseQuality(item: Item) =
         !isLegendary(item) && isBeneathMaximumQuality(item.quality)
 
-    private fun isBeneathMaximumQuality(quality: Int) = quality < 50
+    private fun isBeneathMaximumQuality(quality: Int) = quality < MAX_QUALITY
 
-    private fun isAboveMinimumQuality(quality: Int) = quality > 0
+    private fun isAboveMinimumQuality(quality: Int) = quality > MIN_QUALITY
 
     private fun isAged(item: Item) = isAgedBrie(item) || isBackstagePass(item)
 

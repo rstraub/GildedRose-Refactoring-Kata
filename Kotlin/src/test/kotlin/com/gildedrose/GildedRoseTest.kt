@@ -3,6 +3,8 @@ package com.gildedrose
 import com.gildedrose.GildedRose.Companion.AGED_BRIE
 import com.gildedrose.GildedRose.Companion.BACKSTAGE_PASS
 import com.gildedrose.GildedRose.Companion.LEGENDARY
+import com.gildedrose.GildedRose.Companion.MAX_QUALITY
+import com.gildedrose.GildedRose.Companion.MIN_QUALITY
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Nested
@@ -19,12 +21,12 @@ internal class GildedRoseTest {
     }
 
     @Test
-    fun `quality of an item should never become negative`() {
+    fun `quality of an item should never be below the minimum quality`() {
         val item = Item("test", 10, 0)
 
         val result = updatedItem(item)
 
-        result assertQualityIs 0
+        result assertQualityIs MIN_QUALITY
     }
 
 
@@ -55,16 +57,16 @@ internal class GildedRoseTest {
 
             val result = updatedItem(item)
 
-            result assertQualityIs 50
+            result assertQualityIs MAX_QUALITY
         }
 
         @Test
-        internal fun `quality should not exceed fifty`() {
-            val item = Item(AGED_BRIE, 10, 50)
+        internal fun `quality should not exceed maximum quality`() {
+            val item = Item(AGED_BRIE, 10, MAX_QUALITY)
 
             val result = updatedItem(item)
 
-            result assertQualityIs 50
+            result assertQualityIs MAX_QUALITY
         }
     }
 
@@ -109,7 +111,7 @@ internal class GildedRoseTest {
 
             val result = updatedItem(item)
 
-            result assertQualityIs 0
+            result assertQualityIs MIN_QUALITY
         }
 
         @Test
@@ -118,7 +120,7 @@ internal class GildedRoseTest {
 
             val result = updatedItem(item)
 
-            result assertQualityIs 50
+            result assertQualityIs MAX_QUALITY
         }
 
         @Test
@@ -127,7 +129,7 @@ internal class GildedRoseTest {
 
             val result = updatedItem(item)
 
-            result assertQualityIs 50
+            result assertQualityIs MAX_QUALITY
         }
 
         @Test
@@ -136,16 +138,16 @@ internal class GildedRoseTest {
 
             val result = updatedItem(item)
 
-            result assertQualityIs 50
+            result assertQualityIs MAX_QUALITY
         }
 
         @Test
-        internal fun `should not be able to exceed quality of fifty`() {
+        internal fun `should not be able to exceed maximum quality`() {
             val item = Item(BACKSTAGE_PASS, 5, 49)
 
             val result = updatedItem(item)
 
-            result assertQualityIs 50
+            result assertQualityIs MAX_QUALITY
         }
     }
 
