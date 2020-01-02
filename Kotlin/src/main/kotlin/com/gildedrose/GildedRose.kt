@@ -61,9 +61,14 @@ class GildedRose(var items: Array<Item>) {
 
     private fun sellByDatePassed(daysLeft: Int) = daysLeft < 0
 
-    private fun isAllowedToDecreaseQuality(item: Item) = !isLegendary(item) && item.quality > 0
+    private fun isAllowedToDecreaseQuality(item: Item) =
+        !isLegendary(item) && isAboveMinimumQuality(item.quality)
 
-    private fun isAllowedToIncreaseQuality(item: Item) = item.quality < 50
+    private fun isAllowedToIncreaseQuality(item: Item) = isBeneathMaximumQuality(item.quality)
+
+    private fun isBeneathMaximumQuality(quality: Int) = quality < 50
+
+    private fun isAboveMinimumQuality(quality: Int) = quality > 0
 
     private fun isAged(item: Item) = isAgedBrie(item) || isBackstagePass(item)
 
