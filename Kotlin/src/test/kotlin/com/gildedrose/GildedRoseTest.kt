@@ -137,7 +137,7 @@ internal class GildedRoseTest {
     private fun updatedItem(item: Item): Item {
         val items = arrayOf(item)
         val app = GildedRose(items)
-        app.updateQuality()
+        app.updateInventory()
         return app.items.first()
     }
 }

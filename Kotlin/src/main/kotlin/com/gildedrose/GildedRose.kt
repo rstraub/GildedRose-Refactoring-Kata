@@ -1,8 +1,7 @@
 package com.gildedrose
 
 class GildedRose(var items: Array<Item>) {
-
-    fun updateQuality() {
+    fun updateInventory() {
         for (i in items.indices) {
             if (items[i].name != "Aged Brie" && items[i].name != "Backstage passes to a TAFKAL80ETC concert") {
                 if (items[i].quality > 0) {
@@ -53,6 +52,5 @@ class GildedRose(var items: Array<Item>) {
             }
         }
     }
-
 }
 
