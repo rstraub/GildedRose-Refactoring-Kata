@@ -1,6 +1,7 @@
 package com.gildedrose
 
 import com.gildedrose.GildedRose.Companion.AGED_BRIE
+import com.gildedrose.GildedRose.Companion.BACKSTAGE_PASS
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Nested
@@ -88,11 +89,9 @@ internal class GildedRoseTest {
 
     @Nested
     inner class BackstagePasses {
-        private val backstagePass = "Backstage passes to a TAFKAL80ETC concert"
-
         @Test
         internal fun `should have zero quality when the sell by date has passed`() {
-            val item = Item(backstagePass, 0, 49)
+            val item = Item(BACKSTAGE_PASS, 0, 49)
 
             val result = updatedItem(item)
 
@@ -101,7 +100,7 @@ internal class GildedRoseTest {
 
         @Test
         internal fun `should increase the quality by one if it has more than 10 days remaining`() {
-            val item = Item(backstagePass, 11, 0)
+            val item = Item(BACKSTAGE_PASS, 11, 0)
 
             val result = updatedItem(item)
 
@@ -110,7 +109,7 @@ internal class GildedRoseTest {
 
         @Test
         internal fun `should increase the quality by two when there are less than 10 days remaining`() {
-            val item = Item(backstagePass, 10, 0)
+            val item = Item(BACKSTAGE_PASS, 10, 0)
 
             val result = updatedItem(item)
 
@@ -119,7 +118,7 @@ internal class GildedRoseTest {
 
         @Test
         internal fun `should increase the quality by three when there are less than five days left`() {
-            val item = Item(backstagePass, 5, 0)
+            val item = Item(BACKSTAGE_PASS, 5, 0)
 
             val result = updatedItem(item)
 
