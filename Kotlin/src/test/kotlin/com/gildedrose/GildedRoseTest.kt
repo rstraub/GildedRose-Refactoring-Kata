@@ -26,9 +26,19 @@ internal class GildedRoseTest {
 
         val result = updatedItem(item)
 
+        assertThat(MIN_QUALITY).isEqualTo(0)
         result assertQualityIs MIN_QUALITY
     }
 
+    @Test
+    internal fun `quality should not exceed maximum quality`() {
+        val item = Item(AGED_BRIE, 10, MAX_QUALITY)
+
+        val result = updatedItem(item)
+
+        assertThat(MAX_QUALITY).isEqualTo(50)
+        result assertQualityIs MAX_QUALITY
+    }
 
     @Nested
     inner class Regular {
@@ -54,15 +64,6 @@ internal class GildedRoseTest {
         @Test
         internal fun `quality should increase over time`() {
             val item = Item(AGED_BRIE, 10, 49)
-
-            val result = updatedItem(item)
-
-            result assertQualityIs MAX_QUALITY
-        }
-
-        @Test
-        internal fun `quality should not exceed maximum quality`() {
-            val item = Item(AGED_BRIE, 10, MAX_QUALITY)
 
             val result = updatedItem(item)
 
