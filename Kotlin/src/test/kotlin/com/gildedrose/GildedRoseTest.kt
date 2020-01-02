@@ -46,17 +46,12 @@ internal class GildedRoseTest {
 
     @Nested
     inner class AgedBrie {
-        private lateinit var agedBrie: Item
-        private lateinit var items: Array<Item>
-
-        @BeforeEach
-        internal fun setUp() {
-            agedBrie = Item("Aged Brie", 10, 49)
-            items = arrayOf(agedBrie)
-        }
+        private val agedBrie = "Aged Brie"
 
         @Test
         internal fun `quality should increase over time`() {
+            val item = Item(agedBrie, 10, 49)
+            val items = arrayOf(item)
             val result = updatedItem(items)
 
             assertThat(result.quality).isEqualTo(50)
@@ -64,8 +59,8 @@ internal class GildedRoseTest {
 
         @Test
         internal fun `quality should not exceed 50`() {
-            agedBrie = Item("Aged Brie", 10, 50)
-            items = arrayOf(agedBrie)
+            val item = Item(agedBrie, 10, 50)
+            val items = arrayOf(item)
 
             val result = updatedItem(items)
 
@@ -99,9 +94,11 @@ internal class GildedRoseTest {
 
     @Nested
     inner class BackstagePasses {
+        private val backStagePass = "Backstage passes to a TAFKAL80ETC concert"
+
         @Test
         internal fun `should have zero quality when the sell by date has passed`() {
-            val backstagePass = Item("Backstage passes to a TAFKAL80ETC concert", 0, 49)
+            val backstagePass = Item(backStagePass, 0, 49)
 
             val result = updatedItem(arrayOf(backstagePass))
 
@@ -110,7 +107,7 @@ internal class GildedRoseTest {
 
         @Test
         internal fun `should increase the quality by one if it has more than 10 days remaining`() {
-            val backstagePass = Item("Backstage passes to a TAFKAL80ETC concert", 11, 0)
+            val backstagePass = Item(backStagePass, 11, 0)
 
             val result = updatedItem(arrayOf(backstagePass))
 
@@ -119,7 +116,7 @@ internal class GildedRoseTest {
 
         @Test
         internal fun `should increase the quality by two when there are less than 10 days remaining`() {
-            val backstagePass = Item("Backstage passes to a TAFKAL80ETC concert", 10, 0)
+            val backstagePass = Item(backStagePass, 10, 0)
 
             val result = updatedItem(arrayOf(backstagePass))
 
@@ -128,7 +125,7 @@ internal class GildedRoseTest {
 
         @Test
         internal fun `should increase the quality by three when there are less than five days left`() {
-            val backstagePass = Item("Backstage passes to a TAFKAL80ETC concert", 5, 0)
+            val backstagePass = Item(backStagePass, 5, 0)
 
             val result = updatedItem(arrayOf(backstagePass))
 
