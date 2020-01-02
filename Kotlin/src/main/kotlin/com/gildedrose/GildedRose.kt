@@ -22,15 +22,11 @@ class GildedRose(var items: Array<Item>) {
 
                 if (isBackstagePass(item)) {
                     if (item.sellIn <= 10) {
-                        if (isAllowedToIncreaseQuality(item)) {
-                            qualityDifference = 2
-                        }
+                        qualityDifference = 2
                     }
 
                     if (item.sellIn <= 5) {
-                        if (isAllowedToIncreaseQuality(item)) {
-                            qualityDifference = 3
-                        }
+                        qualityDifference = 3
                     }
                 }
             }
