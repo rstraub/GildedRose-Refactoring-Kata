@@ -12,17 +12,10 @@ internal class GildedRoseTest {
     private val regularItem = Item("test", 10, 10)
 
     @Test
-    fun `should deduct the sell in days`() {
+    fun `should reduce the sell in days`() {
         val result = updatedItem(regularItem)
 
         result assertSellInIs 9
-    }
-
-    @Test
-    fun `should deduct the quality for a regular item`() {
-        val result = updatedItem(regularItem)
-
-        result assertQualityIs 9
     }
 
     @Test
@@ -34,13 +27,24 @@ internal class GildedRoseTest {
         result assertQualityIs 0
     }
 
-    @Test
-    fun `quality should degrade twice as fast when sell by date has passed`() {
-        val item = Item("test", 0, 10)
 
-        val result = updatedItem(item)
+    @Nested
+    inner class Regular {
+        @Test
+        fun `should reduce in quality`() {
+            val result = updatedItem(regularItem)
 
-        result assertQualityIs 8
+            result assertQualityIs 9
+        }
+
+        @Test
+        fun `quality should degrade twice as fast when sell by date has passed`() {
+            val item = Item("test", 0, 10)
+
+            val result = updatedItem(item)
+
+            result assertQualityIs 8
+        }
     }
 
     @Nested
@@ -55,7 +59,7 @@ internal class GildedRoseTest {
         }
 
         @Test
-        internal fun `quality should not exceed 50`() {
+        internal fun `quality should not exceed fifty`() {
             val item = Item(AGED_BRIE, 10, 50)
 
             val result = updatedItem(item)
@@ -100,30 +104,39 @@ internal class GildedRoseTest {
         }
 
         @Test
-        internal fun `should increase the quality by one if it has more than 10 days remaining`() {
-            val item = Item(BACKSTAGE_PASS, 11, 0)
+        internal fun `should increase the quality by one if it has more than ten days remaining`() {
+            val item = Item(BACKSTAGE_PASS, 11, 49)
 
             val result = updatedItem(item)
 
-            result assertQualityIs 1
+            result assertQualityIs 50
         }
 
         @Test
-        internal fun `should increase the quality by two when there are less than 10 days remaining`() {
-            val item = Item(BACKSTAGE_PASS, 6, 0)
+        internal fun `should increase the quality by two when there are less than ten days remaining`() {
+            val item = Item(BACKSTAGE_PASS, 6, 48)
 
             val result = updatedItem(item)
 
-            result assertQualityIs 2
+            result assertQualityIs 50
         }
 
         @Test
         internal fun `should increase the quality by three when there are less than five days left`() {
-            val item = Item(BACKSTAGE_PASS, 5, 0)
+            val item = Item(BACKSTAGE_PASS, 5, 47)
 
             val result = updatedItem(item)
 
-            result assertQualityIs 3
+            result assertQualityIs 50
+        }
+
+        @Test
+        internal fun `should not be able to exceed quality of fifty`() {
+            val item = Item(BACKSTAGE_PASS, 5, 49)
+
+            val result = updatedItem(item)
+
+            result assertQualityIs 50
         }
     }
 

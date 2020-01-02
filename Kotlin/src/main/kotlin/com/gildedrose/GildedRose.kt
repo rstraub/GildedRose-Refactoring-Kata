@@ -40,7 +40,11 @@ class GildedRose(var items: Array<Item>) {
             }
         }
 
-        item.quality += qualityDifference
+        if (item.quality + qualityDifference > 50 && !isLegendary(item))
+            item.quality = 50
+        else {
+            item.quality += qualityDifference
+        }
 
         if (sellByDatePassed(updatedSellByDate(item))) {
             if (isAgedBrie(item)) {
