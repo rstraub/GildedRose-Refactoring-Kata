@@ -17,18 +17,18 @@ class GildedRose(var items: Array<Item>) {
                 }
             }
         } else {
-            if (item.quality < 50) {
+            if (canIncreaseInQuality(item)) {
                 item.quality = item.quality + 1
 
                 if (isBackstagePass(item)) {
                     if (item.sellIn < 11) {
-                        if (item.quality < 50) {
+                        if (canIncreaseInQuality(item)) {
                             item.quality = item.quality + 1
                         }
                     }
 
                     if (item.sellIn < 6) {
-                        if (item.quality < 50) {
+                        if (canIncreaseInQuality(item)) {
                             item.quality = item.quality + 1
                         }
                     }
@@ -52,12 +52,14 @@ class GildedRose(var items: Array<Item>) {
                     item.quality = item.quality - item.quality
                 }
             } else {
-                if (item.quality < 50) {
+                if (canIncreaseInQuality(item)) {
                     item.quality = item.quality + 1
                 }
             }
         }
     }
+
+    private fun canIncreaseInQuality(item: Item) = item.quality < 50
 
     private fun isAgedBrie(item: Item) = item.name == AGED_BRIE
 
