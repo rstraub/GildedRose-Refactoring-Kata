@@ -110,7 +110,7 @@ internal class GildedRoseTest {
 
         @Test
         internal fun `should increase the quality by two when there are less than 10 days remaining`() {
-            val item = Item(BACKSTAGE_PASS, 10, 0)
+            val item = Item(BACKSTAGE_PASS, 6, 0)
 
             val result = updatedItem(item)
 
