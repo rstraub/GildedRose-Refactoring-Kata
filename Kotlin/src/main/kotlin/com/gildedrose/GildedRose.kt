@@ -34,9 +34,7 @@ class GildedRose(var items: Array<Item>) {
             }
         }
 
-        item.sellIn = newSellByDate(item)
-
-        if (sellByDatePassed(item)) {
+        if (sellByDatePassed(newSellByDate(item))) {
             if (isAgedBrie(item)) {
                 if (isAllowedToIncreaseQuality(item)) {
                     item.quality = item.quality + 1
@@ -51,6 +49,8 @@ class GildedRose(var items: Array<Item>) {
                 }
             }
         }
+
+        item.sellIn = newSellByDate(item)
     }
 
     private fun newSellByDate(item: Item) =
@@ -59,7 +59,7 @@ class GildedRose(var items: Array<Item>) {
         else
             item.sellIn - 1
 
-    private fun sellByDatePassed(item: Item) = item.sellIn < 0
+    private fun sellByDatePassed(daysLeft: Int) = daysLeft < 0
 
     private fun isAllowedToDecreaseQuality(item: Item) = !isLegendary(item) && item.quality > 0
 
