@@ -1,10 +1,15 @@
 package com.gildedrose
 
 class GildedRose(var items: Array<Item>) {
+    companion object {
+        const val AGED_BRIE = "Aged Brie"
+    }
+
     fun updateInventory() = items.forEach(::updateItem)
 
+
     private fun updateItem(item: Item) {
-        if (item.name != "Aged Brie" && item.name != "Backstage passes to a TAFKAL80ETC concert") {
+        if (item.name != AGED_BRIE && item.name != "Backstage passes to a TAFKAL80ETC concert") {
             if (item.quality > 0) {
                 if (item.name != "Sulfuras, Hand of Ragnaros") {
                     item.quality = item.quality - 1
@@ -35,7 +40,7 @@ class GildedRose(var items: Array<Item>) {
         }
 
         if (item.sellIn < 0) {
-            if (item.name != "Aged Brie") {
+            if (item.name != AGED_BRIE) {
                 if (item.name != "Backstage passes to a TAFKAL80ETC concert") {
                     if (item.quality > 0) {
                         if (item.name != "Sulfuras, Hand of Ragnaros") {

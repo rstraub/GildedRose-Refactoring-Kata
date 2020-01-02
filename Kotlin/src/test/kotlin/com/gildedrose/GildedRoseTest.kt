@@ -1,5 +1,6 @@
 package com.gildedrose
 
+import com.gildedrose.GildedRose.Companion.AGED_BRIE
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Nested
@@ -42,11 +43,9 @@ internal class GildedRoseTest {
 
     @Nested
     inner class AgedBrie {
-        private val agedBrie = "Aged Brie"
-
         @Test
         internal fun `quality should increase over time`() {
-            val item = Item(agedBrie, 10, 49)
+            val item = Item(AGED_BRIE, 10, 49)
 
             val result = updatedItem(item)
 
@@ -55,7 +54,7 @@ internal class GildedRoseTest {
 
         @Test
         internal fun `quality should not exceed 50`() {
-            val item = Item(agedBrie, 10, 50)
+            val item = Item(AGED_BRIE, 10, 50)
 
             val result = updatedItem(item)
 
