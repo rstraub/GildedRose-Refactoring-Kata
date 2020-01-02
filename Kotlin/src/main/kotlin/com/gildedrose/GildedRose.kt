@@ -10,6 +10,11 @@ class GildedRose(var items: Array<Item>) {
     fun updateInventory() = items.forEach(::updateItem)
 
     private fun updateItem(item: Item) {
+        updateQuality(item)
+        item.sellIn = updatedSellByDate(item)
+    }
+
+    private fun updateQuality(item: Item) {
         if (isAged(item)) {
             if (isAllowedToIncreaseQuality(item)) {
                 item.quality = item.quality + 1
@@ -34,7 +39,7 @@ class GildedRose(var items: Array<Item>) {
             }
         }
 
-        if (sellByDatePassed(newSellByDate(item))) {
+        if (sellByDatePassed(updatedSellByDate(item))) {
             if (isAgedBrie(item)) {
                 if (isAllowedToIncreaseQuality(item)) {
                     item.quality = item.quality + 1
@@ -49,11 +54,9 @@ class GildedRose(var items: Array<Item>) {
                 }
             }
         }
-
-        item.sellIn = newSellByDate(item)
     }
 
-    private fun newSellByDate(item: Item) =
+    private fun updatedSellByDate(item: Item) =
         if (isLegendary(item))
             item.sellIn
         else
