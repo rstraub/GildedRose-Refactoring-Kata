@@ -2,6 +2,7 @@ package com.gildedrose
 
 import com.gildedrose.GildedRose.Companion.AGED_BRIE
 import com.gildedrose.GildedRose.Companion.BACKSTAGE_PASS
+import com.gildedrose.GildedRose.Companion.LEGENDARY
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Nested
@@ -69,7 +70,7 @@ internal class GildedRoseTest {
 
         @BeforeEach
         internal fun setUp() {
-            legendary = Item("Sulfuras, Hand of Ragnaros", 0, 80)
+            legendary = Item(LEGENDARY, 0, 80)
         }
 
         @Test

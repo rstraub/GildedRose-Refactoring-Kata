@@ -4,6 +4,7 @@ class GildedRose(var items: Array<Item>) {
     companion object {
         const val AGED_BRIE = "Aged Brie"
         const val BACKSTAGE_PASS = "Backstage passes to a TAFKAL80ETC concert"
+        const val LEGENDARY = "Sulfuras, Hand of Ragnaros"
     }
 
     fun updateInventory() = items.forEach(::updateItem)
@@ -11,7 +12,7 @@ class GildedRose(var items: Array<Item>) {
     private fun updateItem(item: Item) {
         if (item.name != AGED_BRIE && item.name != BACKSTAGE_PASS) {
             if (item.quality > 0) {
-                if (item.name != "Sulfuras, Hand of Ragnaros") {
+                if (item.name != LEGENDARY) {
                     item.quality = item.quality - 1
                 }
             }
@@ -35,7 +36,7 @@ class GildedRose(var items: Array<Item>) {
             }
         }
 
-        if (item.name != "Sulfuras, Hand of Ragnaros") {
+        if (item.name != LEGENDARY) {
             item.sellIn = item.sellIn - 1
         }
 
@@ -43,7 +44,7 @@ class GildedRose(var items: Array<Item>) {
             if (item.name != AGED_BRIE) {
                 if (item.name != BACKSTAGE_PASS) {
                     if (item.quality > 0) {
-                        if (item.name != "Sulfuras, Hand of Ragnaros") {
+                        if (item.name != LEGENDARY) {
                             item.quality = item.quality - 1
                         }
                     }
