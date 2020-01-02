@@ -21,6 +21,10 @@ class GildedRose(var items: Array<Item>) {
             return item.quality
 
         var qualityDifference = MIN_QUALITY
+        if (isRegular(item)) {
+            qualityDifference = -1
+        }
+
         if (isAged(item)) {
             qualityDifference = 1
 
@@ -32,10 +36,6 @@ class GildedRose(var items: Array<Item>) {
                 if (item.sellIn <= 5) {
                     qualityDifference = 3
                 }
-            }
-        } else {
-            if (isRegular(item)) {
-                qualityDifference = -1
             }
         }
 
