@@ -20,31 +20,17 @@ class GildedRose(var items: Array<Item>) {
         if (isLegendary(item))
             return item.quality
 
-        val newQuality = item.quality + qualityDifference(item)
-
-        return if (newQuality > MAX_QUALITY)
-            MAX_QUALITY
-        else if (newQuality < MIN_QUALITY)
-            MIN_QUALITY
-        else {
-            newQuality
-        }
-    }
-
-    private fun qualityDifference(item: Item): Int {
         var qualityDifference = MIN_QUALITY
         if (isAged(item)) {
-            if (isAllowedToIncreaseQuality(item)) {
-                qualityDifference = 1
+            qualityDifference = 1
 
-                if (isBackstagePass(item)) {
-                    if (item.sellIn <= 10) {
-                        qualityDifference = 2
-                    }
+            if (isBackstagePass(item)) {
+                if (item.sellIn <= 10) {
+                    qualityDifference = 2
+                }
 
-                    if (item.sellIn <= 5) {
-                        qualityDifference = 3
-                    }
+                if (item.sellIn <= 5) {
+                    qualityDifference = 3
                 }
             }
         } else {
@@ -62,7 +48,16 @@ class GildedRose(var items: Array<Item>) {
                 }
             }
         }
-        return qualityDifference
+
+        val newQuality = item.quality + qualityDifference
+
+        return if (newQuality > MAX_QUALITY)
+            MAX_QUALITY
+        else if (newQuality < MIN_QUALITY)
+            MIN_QUALITY
+        else {
+            newQuality
+        }
     }
 
     private fun updatedSellByDate(item: Item) =
