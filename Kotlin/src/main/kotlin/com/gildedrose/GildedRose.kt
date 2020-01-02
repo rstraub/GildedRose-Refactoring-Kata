@@ -10,9 +10,9 @@ class GildedRose(var items: Array<Item>) {
     fun updateInventory() = items.forEach(::updateItem)
 
     private fun updateItem(item: Item) {
-        if (item.name != AGED_BRIE && item.name != BACKSTAGE_PASS) {
+        if (!isAgedBrie(item) && !isBackstagePass(item)) {
             if (item.quality > 0) {
-                if (item.name != LEGENDARY) {
+                if (!isLegendary(item)) {
                     item.quality = item.quality - 1
                 }
             }
@@ -20,7 +20,7 @@ class GildedRose(var items: Array<Item>) {
             if (item.quality < 50) {
                 item.quality = item.quality + 1
 
-                if (item.name == BACKSTAGE_PASS) {
+                if (isBackstagePass(item)) {
                     if (item.sellIn < 11) {
                         if (item.quality < 50) {
                             item.quality = item.quality + 1
@@ -36,15 +36,15 @@ class GildedRose(var items: Array<Item>) {
             }
         }
 
-        if (item.name != LEGENDARY) {
+        if (!isLegendary(item)) {
             item.sellIn = item.sellIn - 1
         }
 
         if (item.sellIn < 0) {
-            if (item.name != AGED_BRIE) {
-                if (item.name != BACKSTAGE_PASS) {
+            if (!isAgedBrie(item)) {
+                if (!isBackstagePass(item)) {
                     if (item.quality > 0) {
-                        if (item.name != LEGENDARY) {
+                        if (!isLegendary(item)) {
                             item.quality = item.quality - 1
                         }
                     }
@@ -58,5 +58,11 @@ class GildedRose(var items: Array<Item>) {
             }
         }
     }
+
+    private fun isAgedBrie(item: Item) = item.name == AGED_BRIE
+
+    private fun isLegendary(item: Item) = item.name == LEGENDARY
+
+    private fun isBackstagePass(item: Item) = item.name == BACKSTAGE_PASS
 }
 
