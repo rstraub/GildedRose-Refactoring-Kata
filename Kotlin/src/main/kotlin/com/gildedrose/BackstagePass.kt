@@ -1,5 +1,7 @@
 package com.gildedrose
 
+import com.gildedrose.Quality.Companion.MIN_QUALITY
+
 class BackstagePass(
     name: String,
     sellIn: Int,
@@ -8,7 +10,7 @@ class BackstagePass(
     constructor(item: Item) : this(item.name, item.sellIn, Quality(item.quality))
 
     override fun calculateQuality() = when {
-        sellByDatePassed -> Quality(0)
+        sellByDatePassed -> MIN_QUALITY
         sellIn <= 5 -> quality + 3
         sellIn <= 10 -> quality + 2
         else -> quality + 1
