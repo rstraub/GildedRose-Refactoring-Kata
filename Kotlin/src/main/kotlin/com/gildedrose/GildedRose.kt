@@ -35,11 +35,11 @@ class GildedRose(var items: Array<Item>) {
             }
         }
 
-        if (isAgedBrie(item)) {
-            qualityDifference = 1
-        }
-
         var newQuality = item.quality + qualityDifference
+
+        if (isAgedBrie(item)) {
+            newQuality = agedBrieQuality(item)
+        }
 
         if (isBackstagePass(item)) {
             newQuality = backstagePassQuality(item)
@@ -60,6 +60,8 @@ class GildedRose(var items: Array<Item>) {
         item.sellIn <= 10 -> item.quality + 2
         else -> item.quality + 1
     }
+
+    private fun agedBrieQuality(item: Item) = item.quality + 1
 
     private fun sellByDatePassed(daysLeft: Int) = daysLeft < 0
     private fun belowMinimumQuality(quality: Int) = quality < MIN_QUALITY
