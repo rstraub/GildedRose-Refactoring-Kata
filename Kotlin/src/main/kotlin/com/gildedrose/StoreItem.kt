@@ -14,15 +14,15 @@ abstract class StoreItem(
 
         fun fromItem(item: Item) =
             when {
-                isAgedBrie(item) -> AgedItem(item.name, item.sellIn, item.quality)
-                isLegendary(item) -> LegendaryItem(item.name, item.sellIn, item.quality)
-                isBackstagePass(item) -> BackstagePass(item.name, item.sellIn, item.quality)
-                else -> RegularItem(item.name, item.sellIn, item.quality)
+                item.isAgedBrie() -> AgedItem(item)
+                item.isLegendary() -> LegendaryItem(item)
+                item.isBackstagePass() -> BackstagePass(item)
+                else -> RegularItem(item)
             }
 
-        private fun isAgedBrie(item: Item) = item.name == AGED_BRIE
-        private fun isLegendary(item: Item) = item.name == LEGENDARY
-        private fun isBackstagePass(item: Item) = item.name == BACKSTAGE_PASS
+        private fun Item.isAgedBrie() = name == AGED_BRIE
+        private fun Item.isLegendary() = name == LEGENDARY
+        private fun Item.isBackstagePass() = name == BACKSTAGE_PASS
     }
 
     val sellByDatePassed = sellIn < 0
@@ -38,6 +38,7 @@ abstract class StoreItem(
         belowMinimumQuality(newQuality) -> MIN_QUALITY
         else -> newQuality
     }
+
     private fun belowMinimumQuality(quality: Int) = quality < MIN_QUALITY
     private fun exceedsMaximumQuality(quality: Int) = quality > MAX_QUALITY
 

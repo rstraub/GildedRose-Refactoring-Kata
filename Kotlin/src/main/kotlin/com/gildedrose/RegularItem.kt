@@ -4,7 +4,9 @@ class RegularItem(
     name: String,
     sellIn: Int,
     quality: Int
-): StoreItem(name, sellIn, quality) {
+) : StoreItem(name, sellIn, quality) {
+    constructor(item: Item) : this(item.name, item.sellIn, item.quality)
+
     override fun calculateQuality(): Int {
         val newQuality = if (sellByDatePassed)
             quality - 2

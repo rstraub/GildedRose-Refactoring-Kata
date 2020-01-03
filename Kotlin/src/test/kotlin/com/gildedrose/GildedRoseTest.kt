@@ -7,11 +7,11 @@ import org.junit.jupiter.api.Test
 
 internal class GildedRoseTest {
     private companion object {
-       const val AGED_BRIE = "Aged Brie"
-       const val BACKSTAGE_PASS = "Backstage passes to a TAFKAL80ETC concert"
-       const val LEGENDARY = "Sulfuras, Hand of Ragnaros"
-       const val MAX_QUALITY = 50
-       const val MIN_QUALITY = 0
+        const val AGED_BRIE = "Aged Brie"
+        const val BACKSTAGE_PASS = "Backstage passes to a TAFKAL80ETC concert"
+        const val LEGENDARY = "Sulfuras, Hand of Ragnaros"
+        const val MAX_QUALITY = 50
+        const val MIN_QUALITY = 0
     }
 
     private val regularItem = Item("test", 10, 10)

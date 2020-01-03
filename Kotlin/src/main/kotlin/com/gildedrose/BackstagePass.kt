@@ -5,6 +5,8 @@ class BackstagePass(
     sellIn: Int,
     quality: Int
 ) : StoreItem(name, sellIn, quality) {
+    constructor(item: Item) : this(item.name, item.sellIn, item.quality)
+
     override fun calculateQuality(): Int {
         val newQuality = when {
             sellByDatePassed -> MIN_QUALITY

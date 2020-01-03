@@ -5,6 +5,8 @@ class LegendaryItem(
     sellIn: Int,
     quality: Int
 ) : StoreItem(name, sellIn, quality) {
+    constructor(item: Item) : this(item.name, item.sellIn, item.quality)
+
     override fun calculateSellByDate() = sellIn
     override fun calculateQuality() = quality
 
