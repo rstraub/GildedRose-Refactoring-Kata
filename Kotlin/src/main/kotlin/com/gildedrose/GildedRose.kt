@@ -22,19 +22,11 @@ class GildedRose(var items: Array<Item>) {
         else
             item.sellIn - 1
 
-    private fun updatedQuality(item: Item): Int {
-        if (isLegendary(item))
-            return item.quality
-
-        if (isAgedBrie(item)) {
-            return validatedQuality(agedBrieQuality(item))
-        }
-
-        if (isBackstagePass(item)) {
-            return validatedQuality(backstagePassQuality(item))
-        }
-
-        return validatedQuality(regularQuality(item))
+    private fun updatedQuality(item: Item) = when {
+        isLegendary(item) -> item.quality
+        isAgedBrie(item) -> validatedQuality(agedBrieQuality(item))
+        isBackstagePass(item) -> validatedQuality(backstagePassQuality(item))
+        else -> validatedQuality(regularQuality(item))
     }
 
     private fun regularQuality(item: Item) =
@@ -61,7 +53,6 @@ class GildedRose(var items: Array<Item>) {
     private fun sellByDatePassed(daysLeft: Int) = daysLeft < 0
     private fun belowMinimumQuality(quality: Int) = quality < MIN_QUALITY
     private fun exceedsMaximumQuality(quality: Int) = quality > MAX_QUALITY
-    private fun isRegular(item: Item) = !isAgedBrie(item) && !isBackstagePass(item) && !isLegendary(item)
     private fun isAgedBrie(item: Item) = item.name == AGED_BRIE
     private fun isLegendary(item: Item) = item.name == LEGENDARY
     private fun isBackstagePass(item: Item) = item.name == BACKSTAGE_PASS
