@@ -39,23 +39,11 @@ class GildedRose(var items: Array<Item>) {
             qualityDifference = 1
         }
 
+        var newQuality = item.quality + qualityDifference
+
         if (isBackstagePass(item)) {
-            qualityDifference = 1
-
-            if (item.sellIn <= 10) {
-                qualityDifference = 2
-            }
-
-            if (item.sellIn <= 5) {
-                qualityDifference = 3
-            }
-
-            if (sellByDatePassed(item.sellIn)) {
-                return 0
-            }
+            newQuality = backstagePassQuality(item)
         }
-
-        val newQuality = item.quality + qualityDifference
 
         return validatedQuality(newQuality)
     }
@@ -64,6 +52,18 @@ class GildedRose(var items: Array<Item>) {
         exceedsMaximumQuality(newQuality) -> MAX_QUALITY
         belowMinimumQuality(newQuality) -> MIN_QUALITY
         else -> newQuality
+    }
+
+    private fun backstagePassQuality(item: Item): Int {
+        if (sellByDatePassed(item.sellIn)) {
+            return 0
+        } else if (item.sellIn <= 5) {
+            return item.quality + 3
+        } else if (item.sellIn <= 10) {
+            return item.quality + 2
+        }
+
+        return item.quality + 1
     }
 
     private fun sellByDatePassed(daysLeft: Int) = daysLeft < 0
