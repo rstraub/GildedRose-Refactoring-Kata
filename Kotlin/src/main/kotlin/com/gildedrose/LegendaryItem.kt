@@ -6,4 +6,5 @@ class LegendaryItem(
     quality: Int
 ) : StoreItem(name, sellIn, quality) {
     override fun withNewSellByDate() = LegendaryItem(name, sellIn, quality)
+    override fun withNewQuality(): StoreItem = LegendaryItem(name, sellIn, quality)
 }

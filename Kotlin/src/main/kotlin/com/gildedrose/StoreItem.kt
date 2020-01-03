@@ -27,9 +27,8 @@ open class StoreItem(
 
     open fun withNewSellByDate() = fromItem(StoreItem(name, sellIn - 1, quality))
 
-    fun withNewQuality(): StoreItem {
+    open fun withNewQuality(): StoreItem {
         val newQuality = when {
-            isLegendary(this) -> quality
             isAgedBrie(this) -> validatedQuality(agedBrieQuality(this))
             isBackstagePass(this) -> validatedQuality(backstagePassQuality(this))
             else -> validatedQuality(regularQuality(this))
