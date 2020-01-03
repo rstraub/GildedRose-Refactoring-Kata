@@ -12,9 +12,15 @@ class GildedRose(var items: Array<Item>) {
     fun updateInventory() = items.forEach(::updateItem)
 
     private fun updateItem(item: Item) {
-        item.quality = updatedQuality(item)
         item.sellIn = updatedSellByDate(item)
+        item.quality = updatedQuality(item)
     }
+
+    private fun updatedSellByDate(item: Item) =
+        if (isLegendary(item))
+            item.sellIn
+        else
+            item.sellIn - 1
 
     private fun updatedQuality(item: Item): Int {
         if (isLegendary(item))
@@ -39,7 +45,7 @@ class GildedRose(var items: Array<Item>) {
             }
         }
 
-        if (sellByDatePassed(updatedSellByDate(item))) {
+        if (sellByDatePassed(item.sellIn)) {
             if (isBackstagePass(item)) {
                 qualityDifference = -item.quality
             } else {
@@ -59,12 +65,6 @@ class GildedRose(var items: Array<Item>) {
             newQuality
         }
     }
-
-    private fun updatedSellByDate(item: Item) =
-        if (isLegendary(item))
-            item.sellIn
-        else
-            item.sellIn - 1
 
     private fun sellByDatePassed(daysLeft: Int) = daysLeft < 0
 
