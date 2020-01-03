@@ -9,7 +9,7 @@ class BackstagePass(
         copy(newQuality = validatedQuality(calculateNewQuality()))
 
     private fun calculateNewQuality() = when {
-        sellByDatePassed(sellIn) -> 0
+        sellByDatePassed() -> MIN_QUALITY
         sellIn <= 5 -> quality + 3
         sellIn <= 10 -> quality + 2
         else -> quality + 1

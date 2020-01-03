@@ -9,8 +9,8 @@ open class StoreItem(
         private const val AGED_BRIE = "Aged Brie"
         private const val BACKSTAGE_PASS = "Backstage passes to a TAFKAL80ETC concert"
         private const val LEGENDARY = "Sulfuras, Hand of Ragnaros"
-        private const val MAX_QUALITY = 50
-        private const val MIN_QUALITY = 0
+        const val MAX_QUALITY = 50
+        const val MIN_QUALITY = 0
 
         fun fromItem(item: Item) =
             when {
@@ -31,7 +31,7 @@ open class StoreItem(
         copy(newQuality = validatedQuality(calculateQuality()))
 
     private fun calculateQuality() =
-        if (sellByDatePassed(sellIn))
+        if (sellByDatePassed())
             quality - 2
         else
             quality - 1
@@ -42,7 +42,7 @@ open class StoreItem(
         else -> newQuality
     }
 
-    fun sellByDatePassed(daysLeft: Int) = daysLeft < 0
+    fun sellByDatePassed() = sellIn < 0
     private fun belowMinimumQuality(quality: Int) = quality < MIN_QUALITY
     private fun exceedsMaximumQuality(quality: Int) = quality > MAX_QUALITY
 
