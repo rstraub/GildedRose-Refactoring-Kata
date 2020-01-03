@@ -25,6 +25,8 @@ abstract class StoreItem(
         private fun isBackstagePass(item: Item) = item.name == BACKSTAGE_PASS
     }
 
+    val sellByDatePassed = sellIn < 0
+
     open fun withNewSellByDate() = copy(newSellIn = sellIn - 1)
     fun withNewQuality() = copy(newQuality = calculateQuality())
 
@@ -35,8 +37,6 @@ abstract class StoreItem(
         belowMinimumQuality(newQuality) -> MIN_QUALITY
         else -> newQuality
     }
-
-    fun sellByDatePassed() = sellIn < 0
     private fun belowMinimumQuality(quality: Int) = quality < MIN_QUALITY
     private fun exceedsMaximumQuality(quality: Int) = quality > MAX_QUALITY
 

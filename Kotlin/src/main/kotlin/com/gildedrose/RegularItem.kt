@@ -6,7 +6,7 @@ class RegularItem(
     quality: Int
 ): StoreItem(name, sellIn, quality) {
     override fun calculateQuality(): Int {
-        val newQuality = if (sellByDatePassed())
+        val newQuality = if (sellByDatePassed)
             quality - 2
         else
             quality - 1
