@@ -27,9 +27,10 @@ abstract class StoreItem(
 
     val sellByDatePassed = sellIn < 0
 
-    open fun withNewSellByDate() = copy(newSellIn = sellIn - 1)
-    fun withNewQuality() = copy(newQuality = calculateQuality())
+    fun withNewSellByDate() = copy(newSellIn = calculateSellByDate())
+    open fun calculateSellByDate() = sellIn - 1
 
+    fun withNewQuality() = copy(newQuality = calculateQuality())
     abstract fun calculateQuality(): Int
 
     protected fun validatedQuality(newQuality: Int) = when {
