@@ -16,14 +16,11 @@ class GildedRose(var items: Array<Item>) {
         UpdatePair(items[index], updated)
 
     private fun updateOriginal(updatePair: UpdatePair) =
-        updateOriginal(updatePair.original, updatePair.updated)
-
-    private fun updateOriginal(original: Item, updated: StoreItem) =
-        original updateWith updated
+        updatePair.original updateWith updatePair.updated
 }
 
 private infix fun Item.updateWith(item: StoreItem) {
     sellIn = item.sellIn
-    quality = item.quality
+    quality = item.quality.points
 }
 

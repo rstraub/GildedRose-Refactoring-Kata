@@ -3,15 +3,15 @@ package com.gildedrose
 class AgedItem(
     name: String,
     sellIn: Int,
-    quality: Int
+    quality: Quality
 ) : StoreItem(name, sellIn, quality) {
-    constructor(item: Item) : this(item.name, item.sellIn, item.quality)
+    constructor(item: Item) : this(item.name, item.sellIn, Quality(item.quality))
 
-    override fun calculateQuality() = validatedQuality(quality + 1)
+    override fun calculateQuality() = quality + 1
 
     override fun copy(
         newName: String,
         newSellIn: Int,
-        newQuality: Int
+        newQuality: Quality
     ) = AgedItem(newName, newSellIn, newQuality)
 }
