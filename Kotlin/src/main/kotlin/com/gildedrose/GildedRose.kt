@@ -10,13 +10,16 @@ class GildedRose(var items: Array<Item>) {
         .map(StoreItem::withNewSellByDate)
         .map(StoreItem::withNewQuality)
         .mapIndexed(::toUpdatePair)
-        .forEach(::updateOriginalItem)
+        .forEach(::updateOriginal)
 
     private fun toUpdatePair(index: Int, updated: StoreItem) =
         UpdatePair(items[index], updated)
 
-    private fun updateOriginalItem(updatePair: UpdatePair) =
-        updatePair.original updateWith updatePair.updated
+    private fun updateOriginal(updatePair: UpdatePair) =
+        updateOriginal(updatePair.original, updatePair.updated)
+
+    private fun updateOriginal(original: Item, updated: StoreItem) =
+        original updateWith updated
 }
 
 private infix fun Item.updateWith(item: StoreItem) {
