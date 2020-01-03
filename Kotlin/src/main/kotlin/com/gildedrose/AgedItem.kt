@@ -5,7 +5,7 @@ class AgedItem(
     sellIn: Int,
     quality: Int
 ) : StoreItem(name, sellIn, quality) {
-    override fun withNewQuality() = copy(newQuality = validatedQuality(quality + 1))
+    override fun calculateQuality() = validatedQuality(quality + 1)
 
     override fun copy(
         newName: String,

@@ -1,6 +1,6 @@
 package com.gildedrose
 
-open class StoreItem(
+abstract class StoreItem(
     val name: String,
     val sellIn: Int,
     val quality: Int
@@ -17,7 +17,7 @@ open class StoreItem(
                 isAgedBrie(item) -> AgedItem(item.name, item.sellIn, item.quality)
                 isLegendary(item) -> LegendaryItem(item.name, item.sellIn, item.quality)
                 isBackstagePass(item) -> BackstagePass(item.name, item.sellIn, item.quality)
-                else -> StoreItem(item.name, item.sellIn, item.quality)
+                else -> RegularItem(item.name, item.sellIn, item.quality)
             }
 
         private fun isAgedBrie(item: Item) = item.name == AGED_BRIE
@@ -26,15 +26,9 @@ open class StoreItem(
     }
 
     open fun withNewSellByDate() = copy(newSellIn = sellIn - 1)
+    fun withNewQuality() = copy(newQuality = calculateQuality())
 
-    open fun withNewQuality() =
-        copy(newQuality = validatedQuality(calculateQuality()))
-
-    private fun calculateQuality() =
-        if (sellByDatePassed())
-            quality - 2
-        else
-            quality - 1
+    abstract fun calculateQuality(): Int
 
     protected fun validatedQuality(newQuality: Int) = when {
         exceedsMaximumQuality(newQuality) -> MAX_QUALITY
@@ -46,9 +40,9 @@ open class StoreItem(
     private fun belowMinimumQuality(quality: Int) = quality < MIN_QUALITY
     private fun exceedsMaximumQuality(quality: Int) = quality > MAX_QUALITY
 
-    protected open fun copy(
+    abstract fun copy(
         newName: String = name,
         newSellIn: Int = sellIn,
         newQuality: Int = quality
-    ) = StoreItem(newName, newSellIn, newQuality)
+    ): StoreItem
 }
