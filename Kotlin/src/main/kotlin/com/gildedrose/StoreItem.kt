@@ -18,4 +18,13 @@ open class StoreItem(
         private fun isLegendary(item: Item) = item.name == GildedRose.LEGENDARY
         private fun isBackstagePass(item: Item) = item.name == GildedRose.BACKSTAGE_PASS
     }
+
+    fun withNewSellByDate(): StoreItem {
+        val sellIn = if (isLegendary(this))
+            sellIn
+        else
+            sellIn - 1
+
+        return StoreItem(name, sellIn, quality)
+    }
 }

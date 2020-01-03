@@ -13,7 +13,7 @@ class GildedRose(var items: Array<Item>) {
 
     fun updateInventory() = items
         .map(::fromItem)
-        .map(::withNewSellByDate)
+        .map(StoreItem::withNewSellByDate)
         .map(::withNewQuality)
         .forEachIndexed(::updateOriginalItem)
 
@@ -21,15 +21,6 @@ class GildedRose(var items: Array<Item>) {
         val original = items[index]
         original.sellIn = item.sellIn
         original.quality = item.quality
-    }
-
-    private fun withNewSellByDate(item: StoreItem): StoreItem {
-        val sellIn = if (isLegendary(item))
-            item.sellIn
-        else
-            item.sellIn - 1
-
-        return StoreItem(item.name, sellIn, item.quality)
     }
 
     private fun withNewQuality(item: StoreItem): StoreItem {
