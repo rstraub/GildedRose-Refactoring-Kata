@@ -57,11 +57,13 @@ class GildedRose(var items: Array<Item>) {
 
         val newQuality = item.quality + qualityDifference
 
-        return when {
-            exceedsMaximumQuality(newQuality) -> MAX_QUALITY
-            belowMinimumQuality(newQuality) -> MIN_QUALITY
-            else -> newQuality
-        }
+        return validatedQuality(newQuality)
+    }
+
+    private fun validatedQuality(newQuality: Int) = when {
+        exceedsMaximumQuality(newQuality) -> MAX_QUALITY
+        belowMinimumQuality(newQuality) -> MIN_QUALITY
+        else -> newQuality
     }
 
     private fun sellByDatePassed(daysLeft: Int) = daysLeft < 0
