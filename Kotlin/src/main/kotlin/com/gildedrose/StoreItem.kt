@@ -1,6 +1,6 @@
 package com.gildedrose
 
-open class RegularItem(
+open class StoreItem(
     name: String,
     sellIn: Int,
     quality: Int

@@ -9,24 +9,40 @@ class GildedRose(var items: Array<Item>) {
         const val MIN_QUALITY = 0
     }
 
-    fun updateInventory() = items.forEach(::updateItem)
+    fun updateInventory() = items
+        .map(::toStoreItem)
+        .map(::withNewSellByDate)
+        .map(::withNewQuality)
+        .forEachIndexed(::updateOriginalItem)
 
-    private fun updateItem(item: Item) {
-        item.sellIn = updatedSellByDate(item)
-        item.quality = updatedQuality(item)
+    private fun toStoreItem(item: Item): StoreItem {
+        return StoreItem(item.name, item.sellIn, item.quality)
     }
 
-    private fun updatedSellByDate(item: Item) =
-        if (isLegendary(item))
+    private fun updateOriginalItem(index: Int, item: Item) {
+        val original = items[index]
+        original.sellIn = item.sellIn
+        original.quality = item.quality
+    }
+
+    private fun withNewSellByDate(item: StoreItem): StoreItem {
+        val sellIn = if (isLegendary(item))
             item.sellIn
         else
             item.sellIn - 1
 
-    private fun updatedQuality(item: Item) = when {
-        isLegendary(item) -> item.quality
-        isAgedBrie(item) -> validatedQuality(agedBrieQuality(item))
-        isBackstagePass(item) -> validatedQuality(backstagePassQuality(item))
-        else -> validatedQuality(regularQuality(item))
+        return StoreItem(item.name, sellIn, item.quality)
+    }
+
+    private fun withNewQuality(item: StoreItem): StoreItem {
+        val newQuality = when {
+            isLegendary(item) -> item.quality
+            isAgedBrie(item) -> validatedQuality(agedBrieQuality(item))
+            isBackstagePass(item) -> validatedQuality(backstagePassQuality(item))
+            else -> validatedQuality(regularQuality(item))
+        }
+
+        return StoreItem(item.name, item.sellIn, newQuality)
     }
 
     private fun regularQuality(item: Item) =
