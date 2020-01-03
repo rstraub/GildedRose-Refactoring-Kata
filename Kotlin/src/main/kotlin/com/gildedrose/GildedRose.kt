@@ -31,11 +31,13 @@ class GildedRose(var items: Array<Item>) {
             qualityDifference = -1
         }
 
-        if (isAged(item)) {
+        if (isAgedBrie(item)) {
             qualityDifference = 1
         }
 
         if (isBackstagePass(item)) {
+            qualityDifference = 1
+
             if (item.sellIn <= 10) {
                 qualityDifference = 2
             }
@@ -57,30 +59,19 @@ class GildedRose(var items: Array<Item>) {
 
         val newQuality = item.quality + qualityDifference
 
-        return if (newQuality > MAX_QUALITY)
-            MAX_QUALITY
-        else if (newQuality < MIN_QUALITY)
-            MIN_QUALITY
-        else {
-            newQuality
+        return when {
+            exceedsMaximumQuality(newQuality) -> MAX_QUALITY
+            belowMinimumQuality(newQuality) -> MIN_QUALITY
+            else -> newQuality
         }
     }
 
     private fun sellByDatePassed(daysLeft: Int) = daysLeft < 0
-
-    private fun isAllowedToIncreaseQuality(item: Item) =
-        !isLegendary(item) && isBeneathMaximumQuality(item.quality)
-
-    private fun isBeneathMaximumQuality(quality: Int) = quality < MAX_QUALITY
-
-    private fun isRegular(item: Item) = !isAged(item) && !isLegendary(item)
-
-    private fun isAged(item: Item) = isAgedBrie(item) || isBackstagePass(item)
-
+    private fun belowMinimumQuality(quality: Int) = quality < MIN_QUALITY
+    private fun exceedsMaximumQuality(quality: Int) = quality > MAX_QUALITY
+    private fun isRegular(item: Item) = !isAgedBrie(item) && !isBackstagePass(item) && !isLegendary(item)
     private fun isAgedBrie(item: Item) = item.name == AGED_BRIE
-
     private fun isLegendary(item: Item) = item.name == LEGENDARY
-
     private fun isBackstagePass(item: Item) = item.name == BACKSTAGE_PASS
 }
 
