@@ -2,9 +2,9 @@ package com.gildedrose
 
 class Quality(points: Int) {
     companion object {
-        private const val LEGENDARY_POINTS = 80
-        private const val MAX_POINTS = 50
-        private const val MIN_POINTS = 0
+        const val LEGENDARY_POINTS = 80
+        const val MAX_POINTS = 50
+        const val MIN_POINTS = 0
 
         val MAX_QUALITY = Quality(MAX_POINTS)
         val MIN_QUALITY = Quality(MIN_POINTS)

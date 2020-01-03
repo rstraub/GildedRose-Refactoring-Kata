@@ -1,15 +1,13 @@
 package com.gildedrose
 
+import com.gildedrose.Quality.Companion.MAX_POINTS
+
 abstract class StoreItem(
     val name: String,
     val sellIn: Int,
     val quality: Quality
 ) {
     companion object {
-        private const val AGED_BRIE = "Aged Brie"
-        private const val BACKSTAGE_PASS = "Backstage passes to a TAFKAL80ETC concert"
-        private const val LEGENDARY = "Sulfuras, Hand of Ragnaros"
-
         fun fromItem(item: Item) =
             when {
                 item.isAgedBrie() -> AgedItem(item)
@@ -18,9 +16,9 @@ abstract class StoreItem(
                 else -> RegularItem(item)
             }
 
-        private fun Item.isAgedBrie() = name == AGED_BRIE
-        private fun Item.isLegendary() = name == LEGENDARY
-        private fun Item.isBackstagePass() = name == BACKSTAGE_PASS
+        private fun Item.isAgedBrie() = name == "Aged Brie"
+        private fun Item.isLegendary() = quality > MAX_POINTS
+        private fun Item.isBackstagePass() = name.contains("Backstage passes")
     }
 
     val sellByDatePassed = sellIn < 0

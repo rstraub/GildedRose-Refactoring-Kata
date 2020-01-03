@@ -82,19 +82,10 @@ internal class GildedRoseTest {
         }
 
         @Test
-        internal fun `quality should not degrade`() {
+        internal fun `quality should not change`() {
             val result = updatedItem(legendary)
 
             result assertQualityIs 80
-        }
-
-        @Test
-        internal fun `quality should not increase`() {
-            val item = Item(LEGENDARY, 10, 40)
-
-            val result = updatedItem(item)
-
-            result assertQualityIs 40
         }
 
         @Test
