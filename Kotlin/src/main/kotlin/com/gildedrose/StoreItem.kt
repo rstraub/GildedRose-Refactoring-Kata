@@ -10,6 +10,7 @@ open class StoreItem(
             when (item) {
                 ::isAgedBrie -> AgedItem(item.name, item.sellIn, item.quality)
                 ::isLegendary -> LegendaryItem(item.name, item.sellIn, item.quality)
+                ::isBackstagePass -> BackstagePass(item.name, item.sellIn, item.quality)
                 else -> StoreItem(item.name, item.sellIn, item.quality)
             }
 
