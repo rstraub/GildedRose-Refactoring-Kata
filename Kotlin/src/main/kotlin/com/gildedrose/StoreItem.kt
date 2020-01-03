@@ -27,17 +27,14 @@ open class StoreItem(
 
     open fun withNewSellByDate() = copy(newSellIn = sellIn - 1)
 
-    open fun withNewQuality(): StoreItem {
-        val newQuality = validatedQuality(regularQuality(this))
+    open fun withNewQuality() =
+        copy(newQuality = validatedQuality(calculateQuality()))
 
-        return copy(newQuality = newQuality)
-    }
-
-    private fun regularQuality(item: StoreItem) =
-        if (sellByDatePassed(item.sellIn))
-            item.quality - 2
+    private fun calculateQuality() =
+        if (sellByDatePassed(sellIn))
+            quality - 2
         else
-            item.quality - 1
+            quality - 1
 
     protected fun validatedQuality(newQuality: Int) = when {
         exceedsMaximumQuality(newQuality) -> MAX_QUALITY
