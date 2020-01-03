@@ -4,5 +4,4 @@ class BackstagePass(
     name: String,
     sellIn: Int,
     quality: Int
-) : StoreItem(name, sellIn, quality) {
-}
+) : StoreItem(name, sellIn, quality)

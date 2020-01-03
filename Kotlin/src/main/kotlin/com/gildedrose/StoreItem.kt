@@ -13,10 +13,10 @@ open class StoreItem(
         private const val MIN_QUALITY = 0
 
         fun fromItem(item: Item) =
-            when (item) {
-                ::isAgedBrie -> AgedItem(item.name, item.sellIn, item.quality)
-                ::isLegendary -> LegendaryItem(item.name, item.sellIn, item.quality)
-                ::isBackstagePass -> BackstagePass(item.name, item.sellIn, item.quality)
+            when {
+                isAgedBrie(item) -> AgedItem(item.name, item.sellIn, item.quality)
+                isLegendary(item) -> LegendaryItem(item.name, item.sellIn, item.quality)
+                isBackstagePass(item) -> BackstagePass(item.name, item.sellIn, item.quality)
                 else -> StoreItem(item.name, item.sellIn, item.quality)
             }
 
@@ -25,14 +25,7 @@ open class StoreItem(
         private fun isBackstagePass(item: Item) = item.name == BACKSTAGE_PASS
     }
 
-    fun withNewSellByDate(): StoreItem {
-        val sellIn = if (isLegendary(this))
-            sellIn
-        else
-            sellIn - 1
-
-        return StoreItem(name, sellIn, quality)
-    }
+    open fun withNewSellByDate() = fromItem(StoreItem(name, sellIn - 1, quality))
 
     fun withNewQuality(): StoreItem {
         val newQuality = when {
