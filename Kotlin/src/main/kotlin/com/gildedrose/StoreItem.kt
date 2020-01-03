@@ -28,12 +28,9 @@ open class StoreItem(
     open fun withNewSellByDate() = copy(newSellIn = sellIn - 1)
 
     open fun withNewQuality(): StoreItem {
-        val newQuality = when {
-            isBackstagePass(this) -> validatedQuality(backstagePassQuality(this))
-            else -> validatedQuality(regularQuality(this))
-        }
+        val newQuality = validatedQuality(regularQuality(this))
 
-        return StoreItem(name, sellIn, newQuality)
+        return copy(newQuality = newQuality)
     }
 
     private fun regularQuality(item: StoreItem) =
@@ -42,20 +39,13 @@ open class StoreItem(
         else
             item.quality - 1
 
-    private fun backstagePassQuality(item: StoreItem) = when {
-        sellByDatePassed(item.sellIn) -> 0
-        item.sellIn <= 5 -> item.quality + 3
-        item.sellIn <= 10 -> item.quality + 2
-        else -> item.quality + 1
-    }
-
     protected fun validatedQuality(newQuality: Int) = when {
         exceedsMaximumQuality(newQuality) -> MAX_QUALITY
         belowMinimumQuality(newQuality) -> MIN_QUALITY
         else -> newQuality
     }
 
-    private fun sellByDatePassed(daysLeft: Int) = daysLeft < 0
+    fun sellByDatePassed(daysLeft: Int) = daysLeft < 0
     private fun belowMinimumQuality(quality: Int) = quality < MIN_QUALITY
     private fun exceedsMaximumQuality(quality: Int) = quality > MAX_QUALITY
 
