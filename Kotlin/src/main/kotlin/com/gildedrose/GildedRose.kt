@@ -26,16 +26,17 @@ class GildedRose(var items: Array<Item>) {
         if (isLegendary(item))
             return item.quality
 
-        var qualityDifference = MIN_QUALITY
+        var newQuality = 0
+
         if (isRegular(item)) {
-            qualityDifference = -1
+            var quality = item.quality -1
 
             if (sellByDatePassed(item.sellIn)) {
-                qualityDifference = -2
+                quality = item.quality -2
             }
+            newQuality = quality
         }
 
-        var newQuality = item.quality + qualityDifference
 
         if (isAgedBrie(item)) {
             newQuality = agedBrieQuality(item)
