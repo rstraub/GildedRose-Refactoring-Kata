@@ -1,16 +1,19 @@
 package com.gildedrose
 
-import com.gildedrose.GildedRose.Companion.AGED_BRIE
-import com.gildedrose.GildedRose.Companion.BACKSTAGE_PASS
-import com.gildedrose.GildedRose.Companion.LEGENDARY
-import com.gildedrose.GildedRose.Companion.MAX_QUALITY
-import com.gildedrose.GildedRose.Companion.MIN_QUALITY
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 
 internal class GildedRoseTest {
+    private companion object {
+       const val AGED_BRIE = "Aged Brie"
+       const val BACKSTAGE_PASS = "Backstage passes to a TAFKAL80ETC concert"
+       const val LEGENDARY = "Sulfuras, Hand of Ragnaros"
+       const val MAX_QUALITY = 50
+       const val MIN_QUALITY = 0
+    }
+
     private val regularItem = Item("test", 10, 10)
 
     @Test
@@ -26,7 +29,6 @@ internal class GildedRoseTest {
 
         val result = updatedItem(item)
 
-        assertThat(MIN_QUALITY).isEqualTo(0)
         result assertQualityIs MIN_QUALITY
     }
 
@@ -36,7 +38,6 @@ internal class GildedRoseTest {
 
         val result = updatedItem(item)
 
-        assertThat(MAX_QUALITY).isEqualTo(50)
         result assertQualityIs MAX_QUALITY
     }
 
