@@ -45,15 +45,15 @@ class GildedRose(var items: Array<Item>) {
             if (item.sellIn <= 5) {
                 qualityDifference = 3
             }
+
+            if (sellByDatePassed(item.sellIn)) {
+                return 0
+            }
         }
 
         if (sellByDatePassed(item.sellIn)) {
-            if (isBackstagePass(item)) {
-                qualityDifference = -item.quality
-            } else {
-                if (isRegular(item)) {
-                    qualityDifference = -2
-                }
+            if (isRegular(item)) {
+                qualityDifference = -2
             }
         }
 
