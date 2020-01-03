@@ -29,7 +29,6 @@ open class StoreItem(
 
     open fun withNewQuality(): StoreItem {
         val newQuality = when {
-            isAgedBrie(this) -> validatedQuality(agedBrieQuality(this))
             isBackstagePass(this) -> validatedQuality(backstagePassQuality(this))
             else -> validatedQuality(regularQuality(this))
         }
@@ -50,9 +49,7 @@ open class StoreItem(
         else -> item.quality + 1
     }
 
-    private fun agedBrieQuality(item: StoreItem) = item.quality + 1
-
-    private fun validatedQuality(newQuality: Int) = when {
+    protected fun validatedQuality(newQuality: Int) = when {
         exceedsMaximumQuality(newQuality) -> MAX_QUALITY
         belowMinimumQuality(newQuality) -> MIN_QUALITY
         else -> newQuality
