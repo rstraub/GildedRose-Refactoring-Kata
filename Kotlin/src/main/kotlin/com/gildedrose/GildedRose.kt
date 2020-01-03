@@ -26,21 +26,15 @@ class GildedRose(var items: Array<Item>) {
         if (isLegendary(item))
             return item.quality
 
-        var newQuality = 0
-
-        if (isRegular(item)) {
-            newQuality = regularQuality(item)
-        }
-
         if (isAgedBrie(item)) {
-            newQuality = agedBrieQuality(item)
+            return validatedQuality(agedBrieQuality(item))
         }
 
         if (isBackstagePass(item)) {
-            newQuality = backstagePassQuality(item)
+            return validatedQuality(backstagePassQuality(item))
         }
 
-        return validatedQuality(newQuality)
+        return validatedQuality(regularQuality(item))
     }
 
     private fun regularQuality(item: Item) =
