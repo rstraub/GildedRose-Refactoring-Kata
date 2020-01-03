@@ -29,14 +29,8 @@ class GildedRose(var items: Array<Item>) {
         var newQuality = 0
 
         if (isRegular(item)) {
-            var quality = item.quality -1
-
-            if (sellByDatePassed(item.sellIn)) {
-                quality = item.quality -2
-            }
-            newQuality = quality
+            newQuality = regularQuality(item)
         }
-
 
         if (isAgedBrie(item)) {
             newQuality = agedBrieQuality(item)
@@ -47,6 +41,15 @@ class GildedRose(var items: Array<Item>) {
         }
 
         return validatedQuality(newQuality)
+    }
+
+    private fun regularQuality(item: Item): Int {
+        var quality = item.quality - 1
+
+        if (sellByDatePassed(item.sellIn)) {
+            quality = item.quality - 2
+        }
+        return quality
     }
 
     private fun validatedQuality(newQuality: Int) = when {
