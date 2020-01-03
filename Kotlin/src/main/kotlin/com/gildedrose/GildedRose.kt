@@ -1,5 +1,7 @@
 package com.gildedrose
 
+import com.gildedrose.StoreItem.Companion.fromItem
+
 class GildedRose(var items: Array<Item>) {
     companion object {
         const val AGED_BRIE = "Aged Brie"
@@ -10,14 +12,10 @@ class GildedRose(var items: Array<Item>) {
     }
 
     fun updateInventory() = items
-        .map(::toStoreItem)
+        .map(::fromItem)
         .map(::withNewSellByDate)
         .map(::withNewQuality)
         .forEachIndexed(::updateOriginalItem)
-
-    private fun toStoreItem(item: Item): StoreItem {
-        return StoreItem(item.name, item.sellIn, item.quality)
-    }
 
     private fun updateOriginalItem(index: Int, item: Item) {
         val original = items[index]
