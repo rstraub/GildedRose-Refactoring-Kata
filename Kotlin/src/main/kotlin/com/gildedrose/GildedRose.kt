@@ -9,7 +9,7 @@ class GildedRose(var items: Array<Item>) {
         .map(StoreItem::withNewQuality)
         .forEachIndexed(::updateOriginalItem)
 
-    private fun updateOriginalItem(index: Int, item: Item) {
+    private fun updateOriginalItem(index: Int, item: StoreItem) {
         val original = items[index]
         original.sellIn = item.sellIn
         original.quality = item.quality

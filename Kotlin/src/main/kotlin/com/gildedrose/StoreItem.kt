@@ -1,10 +1,10 @@
 package com.gildedrose
 
 open class StoreItem(
-    name: String,
-    sellIn: Int,
-    quality: Int
-) : Item(name, sellIn, quality) {
+    val name: String,
+    val sellIn: Int,
+    val quality: Int
+) {
     companion object {
         private const val AGED_BRIE = "Aged Brie"
         private const val BACKSTAGE_PASS = "Backstage passes to a TAFKAL80ETC concert"
@@ -50,5 +50,5 @@ open class StoreItem(
         newName: String = name,
         newSellIn: Int = sellIn,
         newQuality: Int = quality
-    ): StoreItem = StoreItem(newName, newSellIn, newQuality)
+    ) = StoreItem(newName, newSellIn, newQuality)
 }
