@@ -43,20 +43,11 @@ class GildedRose(var items: Array<Item>) {
         return validatedQuality(newQuality)
     }
 
-    private fun regularQuality(item: Item): Int {
-        var quality = item.quality - 1
-
-        if (sellByDatePassed(item.sellIn)) {
-            quality = item.quality - 2
-        }
-        return quality
-    }
-
-    private fun validatedQuality(newQuality: Int) = when {
-        exceedsMaximumQuality(newQuality) -> MAX_QUALITY
-        belowMinimumQuality(newQuality) -> MIN_QUALITY
-        else -> newQuality
-    }
+    private fun regularQuality(item: Item) =
+        if (sellByDatePassed(item.sellIn))
+            item.quality - 2
+        else
+            item.quality - 1
 
     private fun backstagePassQuality(item: Item) = when {
         sellByDatePassed(item.sellIn) -> 0
@@ -66,6 +57,12 @@ class GildedRose(var items: Array<Item>) {
     }
 
     private fun agedBrieQuality(item: Item) = item.quality + 1
+
+    private fun validatedQuality(newQuality: Int) = when {
+        exceedsMaximumQuality(newQuality) -> MAX_QUALITY
+        belowMinimumQuality(newQuality) -> MIN_QUALITY
+        else -> newQuality
+    }
 
     private fun sellByDatePassed(daysLeft: Int) = daysLeft < 0
     private fun belowMinimumQuality(quality: Int) = quality < MIN_QUALITY
