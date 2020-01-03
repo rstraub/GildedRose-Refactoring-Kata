@@ -37,20 +37,20 @@ open class StoreItem(
         return StoreItem(name, sellIn, newQuality)
     }
 
-    private fun regularQuality(item: Item) =
+    private fun regularQuality(item: StoreItem) =
         if (sellByDatePassed(item.sellIn))
             item.quality - 2
         else
             item.quality - 1
 
-    private fun backstagePassQuality(item: Item) = when {
+    private fun backstagePassQuality(item: StoreItem) = when {
         sellByDatePassed(item.sellIn) -> 0
         item.sellIn <= 5 -> item.quality + 3
         item.sellIn <= 10 -> item.quality + 2
         else -> item.quality + 1
     }
 
-    private fun agedBrieQuality(item: Item) = item.quality + 1
+    private fun agedBrieQuality(item: StoreItem) = item.quality + 1
 
     private fun validatedQuality(newQuality: Int) = when {
         exceedsMaximumQuality(newQuality) -> MAX_QUALITY
