@@ -29,6 +29,10 @@ class GildedRose(var items: Array<Item>) {
         var qualityDifference = MIN_QUALITY
         if (isRegular(item)) {
             qualityDifference = -1
+
+            if (sellByDatePassed(item.sellIn)) {
+                qualityDifference = -2
+            }
         }
 
         if (isAgedBrie(item)) {
@@ -48,12 +52,6 @@ class GildedRose(var items: Array<Item>) {
 
             if (sellByDatePassed(item.sellIn)) {
                 return 0
-            }
-        }
-
-        if (sellByDatePassed(item.sellIn)) {
-            if (isRegular(item)) {
-                qualityDifference = -2
             }
         }
 
