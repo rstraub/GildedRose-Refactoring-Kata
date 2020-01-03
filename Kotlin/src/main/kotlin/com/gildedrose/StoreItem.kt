@@ -25,7 +25,7 @@ open class StoreItem(
         private fun isBackstagePass(item: Item) = item.name == BACKSTAGE_PASS
     }
 
-    open fun withNewSellByDate() = fromItem(StoreItem(name, sellIn - 1, quality))
+    open fun withNewSellByDate() = copy(newSellIn = sellIn - 1)
 
     open fun withNewQuality(): StoreItem {
         val newQuality = when {
@@ -61,4 +61,10 @@ open class StoreItem(
     private fun sellByDatePassed(daysLeft: Int) = daysLeft < 0
     private fun belowMinimumQuality(quality: Int) = quality < MIN_QUALITY
     private fun exceedsMaximumQuality(quality: Int) = quality > MAX_QUALITY
+
+    protected open fun copy(
+        newName: String = name,
+        newSellIn: Int = sellIn,
+        newQuality: Int = quality
+    ): StoreItem = StoreItem(newName, newSellIn, newQuality)
 }
