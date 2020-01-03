@@ -54,16 +54,11 @@ class GildedRose(var items: Array<Item>) {
         else -> newQuality
     }
 
-    private fun backstagePassQuality(item: Item): Int {
-        if (sellByDatePassed(item.sellIn)) {
-            return 0
-        } else if (item.sellIn <= 5) {
-            return item.quality + 3
-        } else if (item.sellIn <= 10) {
-            return item.quality + 2
-        }
-
-        return item.quality + 1
+    private fun backstagePassQuality(item: Item) = when {
+        sellByDatePassed(item.sellIn) -> 0
+        item.sellIn <= 5 -> item.quality + 3
+        item.sellIn <= 10 -> item.quality + 2
+        else -> item.quality + 1
     }
 
     private fun sellByDatePassed(daysLeft: Int) = daysLeft < 0
