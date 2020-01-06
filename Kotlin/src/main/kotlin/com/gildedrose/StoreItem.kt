@@ -12,13 +12,15 @@ abstract class StoreItem(
             when {
                 item.isAgedBrie() -> AgedItem(item)
                 item.isLegendary() -> LegendaryItem(item)
-                item.isBackstagePass() -> BackstagePass(item)
+                item.isBackstagePass() -> BackstagePassItem(item)
+                item.isConjured() -> ConjuredItem(item)
                 else -> RegularItem(item)
             }
 
         private fun Item.isAgedBrie() = name == "Aged Brie"
         private fun Item.isLegendary() = quality > MAX_POINTS
         private fun Item.isBackstagePass() = name.contains("Backstage passes")
+        private fun Item.isConjured() = name.startsWith("Conjured")
     }
 
     val sellByDatePassed = sellIn < 0

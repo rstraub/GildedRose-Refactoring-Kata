@@ -2,7 +2,7 @@ package com.gildedrose
 
 import com.gildedrose.Quality.Companion.MIN_QUALITY
 
-class BackstagePass(
+class BackstagePassItem(
     name: String,
     sellIn: Int,
     quality: Quality
@@ -20,5 +20,5 @@ class BackstagePass(
         newName: String,
         newSellIn: Int,
         newQuality: Quality
-    ) = BackstagePass(newName, newSellIn, newQuality)
+    ) = BackstagePassItem(newName, newSellIn, newQuality)
 }

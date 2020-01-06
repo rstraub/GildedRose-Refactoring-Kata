@@ -144,6 +144,29 @@ internal class GildedRoseTest {
         }
     }
 
+    @Nested
+    inner class Conjured {
+        private val conjured = "Conjured Mana Cake"
+
+        @Test
+        internal fun `quality should degrade by two before sell date expires`() {
+            val item = Item(conjured, 10, 10)
+
+            val result = updatedItem(item)
+
+            result assertQualityIs 8
+        }
+
+        @Test
+        internal fun `quality should degrade by four after sell date expires`() {
+            val item = Item(conjured, 0, 10)
+
+            val result = updatedItem(item)
+
+            result assertQualityIs 6
+        }
+    }
+
     private infix fun Item.assertQualityIs(expected: Int) =
         assertThat(quality).isEqualTo(expected)
 
