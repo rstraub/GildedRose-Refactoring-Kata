@@ -34,7 +34,7 @@ abstract class StoreItem(
     protected open fun calculateSellByDate() = sellIn - 1
     protected abstract fun calculateQuality(): Quality
 
-    abstract fun copy(
+    protected abstract fun copy(
         newName: String = name,
         newSellIn: Int = sellIn,
         newQuality: Quality = quality
