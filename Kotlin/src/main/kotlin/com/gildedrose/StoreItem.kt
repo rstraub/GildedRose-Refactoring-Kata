@@ -23,13 +23,16 @@ abstract class StoreItem(
         private fun Item.isConjured() = name.startsWith("Conjured")
     }
 
-    val sellByDatePassed = sellIn < 0
+    protected val sellByDatePassed = sellIn < 0
 
-    fun withNewSellByDate() = copy(newSellIn = calculateSellByDate())
-    open fun calculateSellByDate() = sellIn - 1
+    fun updatedItem() =
+        copy(newSellIn = calculateSellByDate(), newQuality = updatedQuality())
 
-    fun withNewQuality() = copy(newQuality = calculateQuality())
-    abstract fun calculateQuality(): Quality
+    private fun updatedQuality() = withNewSellIn().calculateQuality()
+    private fun withNewSellIn() = copy(newSellIn = calculateSellByDate())
+
+    protected open fun calculateSellByDate() = sellIn - 1
+    protected abstract fun calculateQuality(): Quality
 
     abstract fun copy(
         newName: String = name,

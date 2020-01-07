@@ -7,8 +7,7 @@ class GildedRose(var items: Array<Item>) {
 
     fun updateInventory() = items
         .map(::fromItem)
-        .map(StoreItem::withNewSellByDate)
-        .map(StoreItem::withNewQuality)
+        .map(StoreItem::updatedItem)
         .mapIndexed(::toUpdatePair)
         .forEach(::updateOriginal)
 
